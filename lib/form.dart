@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'updater.dart'; // Make sure to import your main.dart properly
 
 class MyForm extends StatefulWidget {
@@ -10,21 +9,24 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  // String _name = "";
-  // String _email = "";
-  StringUpdater _name = StringUpdater();
-  StringUpdater _email = StringUpdater();
-  String name = "";
-  String email = "";
+  
+  final StringUpdater _name = StringUpdater();
+  final StringUpdater _email = StringUpdater();
+
+  bool isEmail = false;
+  bool isName = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('My Form'),
         ),
         body: Container(
-          padding: const EdgeInsets.all(16.0), // Add padding to constrain the content
+          padding: const EdgeInsets.all(
+              16.0), // Add padding to constrain the content
           child: Column(
             crossAxisAlignment: CrossAxisAlignment
                 .start, // Align children to the start of the column
@@ -33,8 +35,10 @@ class _MyFormState extends State<MyForm> {
               const SizedBox(height: 8.0), // Add some vertical spacing
               TextFormField(
                 onChanged: (value) {
-                 _name.name=value;
-                  // print(_name);
+                  _name.name = value;
+                  setState(() {
+                    isName = true;
+                  });
                 },
                 decoration: const InputDecoration(
                   border:
@@ -47,8 +51,10 @@ class _MyFormState extends State<MyForm> {
               const SizedBox(height: 8.0), // Add some vertical spacing
               TextFormField(
                 onChanged: (value) {
-                  _email.email=value;
-                  // print(_email);
+                  _email.email = value;
+                  setState(() {
+                    isEmail = true;
+                  });
                 },
                 decoration: const InputDecoration(
                   border:
@@ -56,19 +62,16 @@ class _MyFormState extends State<MyForm> {
                   hintText: 'Enter your Email',
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  // names.add(_name);
-                  // emails.add(_email);
-                  // Updater.addName(_name);
-                  _name.addName();
-                  _email.addEmail();
-                  Navigator.pop(context);
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.blue,
+              const SizedBox(height: 16.0),
+              Center(
+                child: ElevatedButton(
+                  onPressed: (isName && isEmail) ? () {
+                    _name.addName();
+                    _email.addEmail();
+                    Navigator.pop(context);
+                  } : null,
+                  child: const Text('Submit'),
                 ),
-                child: const Text('Submit'),
               ),
             ],
           ),
@@ -77,5 +80,3 @@ class _MyFormState extends State<MyForm> {
     );
   }
 }
-
-

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 import 'form.dart';
-import 'updater.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner : false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Contact Home Page'),
     );
   }
 }
@@ -47,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: ((context, index) {
             return ListTile(
               tileColor: (index % 2) != 0
-                  ? Color.fromARGB(255, 100, 53, 0)
-                  : Color.fromARGB(255, 0, 57, 100),
+                  ? const Color.fromARGB(255, 213, 193, 170)
+                  : const Color.fromARGB(255, 175, 192, 205),
               title: Text(names[index]),
               subtitle: Text(emails[index]),
             );
@@ -60,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyForm()),
+            MaterialPageRoute(builder: (context) => const MyForm()),
           );
           setState(() {
             // Update the UI after the form is closed
