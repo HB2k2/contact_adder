@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Make sure to import your main.dart properly
+import 'main.dart';
+import 'updater.dart'; // Make sure to import your main.dart properly
 
 class MyForm extends StatefulWidget {
   const MyForm({Key? key}) : super(key: key);
@@ -9,27 +10,31 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  String _name = "";
-  String _email = "";
+  // String _name = "";
+  // String _email = "";
+  StringUpdater _name = StringUpdater();
+  StringUpdater _email = StringUpdater();
+  String name = "";
+  String email = "";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('My Form'),
+          title: const Text('My Form'),
         ),
         body: Container(
-          padding: EdgeInsets.all(16.0), // Add padding to constrain the content
+          padding: const EdgeInsets.all(16.0), // Add padding to constrain the content
           child: Column(
             crossAxisAlignment: CrossAxisAlignment
                 .start, // Align children to the start of the column
             children: [
-              Text("Name:"),
-              SizedBox(height: 8.0), // Add some vertical spacing
+              const Text("Name:"),
+              const SizedBox(height: 8.0), // Add some vertical spacing
               TextFormField(
                 onChanged: (value) {
-                  _name=value;
-                  print(_name);
+                 _name.name=value;
+                  // print(_name);
                 },
                 decoration: const InputDecoration(
                   border:
@@ -37,13 +42,13 @@ class _MyFormState extends State<MyForm> {
                   hintText: 'Enter your Name',
                 ),
               ),
-              SizedBox(height: 16.0), // Add spacing
-              Text("Email:"),
-              SizedBox(height: 8.0), // Add some vertical spacing
+              const SizedBox(height: 16.0), // Add spacing
+              const Text("Email:"),
+              const SizedBox(height: 8.0), // Add some vertical spacing
               TextFormField(
                 onChanged: (value) {
-                  _email=value;
-                  print(_email);
+                  _email.email=value;
+                  // print(_email);
                 },
                 decoration: const InputDecoration(
                   border:
@@ -53,20 +58,17 @@ class _MyFormState extends State<MyForm> {
               ),
               TextButton(
                 onPressed: () {
-                  // setState(() {
-                  //   names.add(_name);
-                  //   emails.add(_email);
-                  //   print(names);
-
-                  // });
-                  names.add(_name);
-                  emails.add(_email);
+                  // names.add(_name);
+                  // emails.add(_email);
+                  // Updater.addName(_name);
+                  _name.addName();
+                  _email.addEmail();
                   Navigator.pop(context);
                 },
-                child: Text('Submit'),
                 style: TextButton.styleFrom(
                   primary: Colors.blue,
                 ),
+                child: const Text('Submit'),
               ),
             ],
           ),
@@ -75,3 +77,5 @@ class _MyFormState extends State<MyForm> {
     );
   }
 }
+
+

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'form.dart';
+import 'updater.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
+      body: Observer(builder: (context) {
+        return ListView.builder(
           padding: const EdgeInsets.all(8),
           itemCount: names.length,
           itemBuilder: ((context, index) {
@@ -49,17 +52,18 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text(names[index]),
               subtitle: Text(emails[index]),
             );
-          })),
+          }),
+        );
+      }),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => MyForm()),
-          ).then((_) {
-            setState(() {
-              // Update the UI when the form is closed
-            });
+          );
+          setState(() {
+            // Update the UI after the form is closed
           });
         },
         child: const Icon(Icons.add),
