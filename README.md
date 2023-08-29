@@ -1,5 +1,4 @@
-# flutter_application_17
-
+# contact_adder
 A new Flutter project.
 App where you will have home displaying list-view of contacts containing names and email address and floating button at bottom add new contact.
 form with text field to add name and email with a button to submit.
